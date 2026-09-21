@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@theme {
+  /* ---- Brand palette: warm stone + ink + brass ---- */
+  --color-ink-950: #100e0c;
+  --color-ink-900: #17140f;
+  --color-ink-800: #241f19;
+  --color-ink-700: #3a332a;
+  --color-ink-600: #554c40;
+  --color-ink-500: #756a5b;
+  --color-ink-400: #9a8f80;
+  --color-ink-300: #bdb4a7;
+  --color-ink-200: #ded8ce;
+  --color-ink-100: #efeae3;
+  --color-ink-50: #f8f5f1;
+
+  --color-brass-700: #8a6634;
+  --color-brass-600: #a87f45;
+  --color-brass-500: #c09a5e;
+  --color-brass-400: #d4b183;
+  --color-brass-300: #e6cfae;
+  --color-brass-100: #f5ebdb;
+
+  --color-sage-800: #23352f;
+  --color-sage-700: #2f4740;
+  --color-sage-500: #55736a;
+  --color-sage-100: #e3ece8;
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 26px;
+
+  --shadow-soft: 0 1px 2px rgb(23 20 15 / 0.04), 0 8px 24px -12px rgb(23 20 15 / 0.12);
+  --shadow-lift: 0 2px 6px rgb(23 20 15 / 0.05), 0 24px 48px -24px rgb(23 20 15 / 0.22);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-fade-up: fade-up 0.7s var(--ease-out-soft) both;
+  --animate-shimmer: shimmer 1.6s linear infinite;
+  --animate-marquee: marquee 38s linear infinite;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -180% 0;
+  }
+  to {
+    background-position: 180% 0;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    border-color: var(--color-ink-200);
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: #fdfcfa;
+    color: var(--color-ink-900);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Visible, consistent focus ring for keyboard users only. */
+  :focus-visible {
+    outline: 2px solid var(--color-brass-600);
+    outline-offset: 3px;
+    border-radius: 3px;
+  }
+
+  ::selection {
+    background: var(--color-brass-300);
+    color: var(--color-ink-900);
+  }
+
+  /* Respect users who ask for less motion. */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 88rem;
+  padding-inline: 1.25rem;
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 3rem;
+  }
+}
+
+@utility eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-brass-700);
+}
+
+@utility skeleton {
+  background-image: linear-gradient(
+    100deg,
+    var(--color-ink-100) 20%,
+    var(--color-ink-50) 40%,
+    var(--color-ink-100) 60%
+  );
+  background-size: 220% 100%;
+  animation: var(--animate-shimmer);
+}
+
+/* Reveal-on-scroll, driven entirely by CSS.
+   Browsers without scroll-driven animations simply show the content, and no
+   JavaScript touches the DOM — so nothing can diverge during hydration. */
+@utility reveal {
+  opacity: 1;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 24%;
+    }
+  }
+}
+
+/* Hide scrollbars on horizontal rails while keeping them scrollable. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
