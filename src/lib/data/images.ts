@@ -21,7 +21,7 @@ export const img = {
   heroSpa: "photo-1704428381342-ea9df943619e",
   heroStone: "photo-1620626011761-996317b8d101",
   heroCalm: "photo-1650894622076-e09ab837c502",
-  heroWarm: "photo-1638799869566-b17fa794c4de",
+  heroWarm: "photo-1667550109459-7251955bced4",
   heroMinimal: "photo-1661107259637-4e1c55462428",
   heroLight: "photo-1576698483491-8c43f0862543",
   heroDark: "photo-1682888818704-6dc91e9d7532",
@@ -35,7 +35,7 @@ export const img = {
   heroGallery: "photo-1604769319166-010643ace337",
   heroStudio: "photo-1733426107854-ee00a25d72a7",
   heroTub: "photo-1507652313519-d4e9174996dd",
-  heroPlaster: "photo-1642755622932-d1e0cb783dc5",
+  heroPlaster: "photo-1638799869566-b17fa794c4de",
   heroTerrazzo: "photo-1643949700215-e61cdca053f7",
 
   // Faucets & showers
