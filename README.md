@@ -8,15 +8,19 @@ Every route is statically prerendered; there is no backend in this build.
 
 ```bash
 npm install
-npm run dev      # http://localhost:3100
-npm run build    # production build
+npm run dev          # http://localhost:3100
+npm run build        # production build (this is what Vercel/CI runs)
 npm run lint
 npm run typecheck
 ```
 
-> The npm scripts call each binary through `node ./node_modules/...` rather than
-> the `.bin` shims, because this project's directory name contains `&`, which
-> Windows' shim wrappers mis-parse.
+> **Windows note, specific to this folder.** npm's `.bin` shims mis-parse the `&`
+> in the directory name, so the plain scripts fail locally with
+> `'Bath\node_modules\.bin\' is not recognized`. Use the `:win` variants —
+> `build:win`, `start:win`, `lint:win`, `typecheck:win` — which invoke each
+> binary by path instead. The plain scripts are left standard so Vercel's
+> framework detection sees `next build` and applies the Next.js preset.
+> Renaming the folder to drop the `&` removes the need for both sets.
 
 ## What's here
 
